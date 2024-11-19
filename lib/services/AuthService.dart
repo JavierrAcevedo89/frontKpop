@@ -6,7 +6,6 @@ class AuthService {
   final String baseUrl = 'kpopMovilesDos.somee.com/api/Cuentas';
   final storage = new FlutterSecureStorage();
 
-  // Método para registrar el usuario
   Future<Map<String, dynamic>> register(String email, String password) async {
     final response = await http.post(
       Uri.parse('http://kpopMovilesDos.somee.com/api/Cuentas/Registrar'),
@@ -15,7 +14,6 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      // Guardar token al registrarse
       final data = jsonDecode(response.body);
       await storage.write(key: 'token', value: data['token']);
       return data;
@@ -24,7 +22,6 @@ class AuthService {
     }
   }
 
-  // Método para iniciar sesión
   Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('http://kpopMovilesDos.somee.com/api/Cuentas/Login'),
@@ -42,11 +39,8 @@ class AuthService {
     }
   }
 
-  // Método para obtener el token guardado
   Future<String?> getToken() async {
     return await storage.read(key: 'token');
   }
-
-  // Método para obtener canción aleatoria
   
 }
